@@ -42,7 +42,7 @@ export default function EditarProducto() {
                 />
                 <Input
                     type="number"
-                    value={formData.precio}
+                    value={formData.precio_unitario}
                     onChange={(e) => setFormData({ ...formData, precio_unitario: e.target.value })}
                     placeholder="Precio"
                 />
