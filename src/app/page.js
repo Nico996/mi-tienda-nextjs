@@ -25,7 +25,6 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
 
   const eliminarProducto = async (id) => {
-    // if (!confirm("¿Seguro que desea eliminar este producto?")) return;
 
     const { error } = await supabase
       .from("productos")

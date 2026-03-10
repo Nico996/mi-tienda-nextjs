@@ -5,6 +5,7 @@ import { supabase } from "@/lib/supabase";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner"
+import { NumericFormat } from 'react-number-format';
 
 export default function EditarProducto() {
     const { id } = useParams();
@@ -31,7 +32,7 @@ export default function EditarProducto() {
             router.push("/");
             router.refresh();
         }
-        else{
+        else {
             toast.error("Error al crear: " + error.message);
         }
     };
@@ -45,11 +46,17 @@ export default function EditarProducto() {
                     onChange={(e) => setFormData({ ...formData, nombre: e.target.value })}
                     placeholder="Nombre"
                 />
-                <Input
-                    type="number"
-                    value={formData.precio_unitario}
-                    onChange={(e) => setFormData({ ...formData, precio_unitario: e.target.value })}
-                    placeholder="Precio"
+                <NumericFormat
+                    customInput={Input}
+                    thousandSeparator={true}
+                    prefix={'$ '}
+                    decimalScale={2}
+                    fixedDecimalScale={true}
+                    allowNegative={false}
+                    placeholder="$ 0.00"
+                    onValueChange={(values) => {
+                        setFormData({ ...formData, precio_unitario: values.floatValue });
+                    }}
                 />
                 <Button variant="outline" type="button" onClick={() => router.back()}>
                     Cancelar

@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
 import { toast } from "sonner"
+import { NumericFormat } from 'react-number-format';
 
 export default function NuevoProducto() {
     const [nombre, setNombre] = useState("");
@@ -60,13 +61,17 @@ export default function NuevoProducto() {
                         </div>
                         <div className="space-y-2">
                             <label className="text-sm font-medium">Precio ($)</label>
-                            <Input
-                                type="number"
-                                step="0.01"
-                                placeholder="29000.99"
-                                value={precio}
-                                onChange={(e) => setPrecio(e.target.value)}
-                                required
+                            <NumericFormat
+                                customInput={Input} //Para usar el diseño de shadcn
+                                thousandSeparator={true}
+                                prefix={'$ '}
+                                decimalScale={2}
+                                fixedDecimalScale={true}
+                                allowNegative={false}
+                                placeholder="$ 0.00"
+                                onValueChange={(values) => {
+                                    setPrecio(values.floatValue); // Guarda el número puro (sin $ ni comas)
+                                }}
                             />
                         </div>
                         <div className="space-y-2">
@@ -88,7 +93,7 @@ export default function NuevoProducto() {
                             />
                         </div>
                     </CardContent>
-                    <br/>
+                    <br />
                     <CardFooter className="flex justify-between">
                         <Button variant="outline" type="button" onClick={() => router.back()}>
                             Cancelar
