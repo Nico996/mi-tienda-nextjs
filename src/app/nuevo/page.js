@@ -40,8 +40,8 @@ export default function NuevoProducto() {
     };
 
     return (
-        <div className="flex justify-center items-center min-h-screen p-4">
-            <Card className="w-full max-w-md">
+        <div className="flex justify-center items-center py-10">
+            <Card className="w-full max-w-md shadow-lg">
                 <CardHeader>
                     <CardTitle>Agregar Nuevo Producto</CardTitle>
                 </CardHeader>

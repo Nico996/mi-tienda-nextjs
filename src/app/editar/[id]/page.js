@@ -46,6 +46,9 @@ export default function EditarProducto() {
                     onChange={(e) => setFormData({ ...formData, precio_unitario: e.target.value })}
                     placeholder="Precio"
                 />
+                <Button variant="outline" type="button" onClick={() => router.back()}>
+                    Cancelar
+                </Button>
                 <Button type="submit">Guardar Cambios</Button>
             </form>
         </div>
