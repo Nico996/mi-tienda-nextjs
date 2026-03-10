@@ -84,12 +84,12 @@ export default function Home() {
                 }
               </div>
               <CardContent className="p-4">
-                <h3 className="font-semibold text-lg">{producto.nombre}</h3>
-                <p className="text-sm text-muted-foreground line-clamp-2">{producto.descripcion}</p>
+                <h3 className="font-semibold text-lg leading-none mb-2">{producto.nombre}</h3>
+                <p className="text-sm text-muted-foreground line-clamp-2 min-h-[40px]">{producto.descripcion}</p>
               </CardContent>
               <CardFooter className="p-4 pt-0 flex justify-between items-center">
                 <span className="text-xl font-bold">${producto.precio_unitario}</span>
-                <Button size="sm">Añadir</Button>
+                {/* <Button size="sm">Añadir</Button> */}{/*Habilitar este botón cuando esté implementado el carrito*/}
                 <div className="flex gap-2">
                   <Link href={`/editar/${producto.id}`}>
                     <Button variant="outline" size="icon">
