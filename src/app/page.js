@@ -15,7 +15,7 @@ export default function Home() {
         .from('productos')
         .select('*')
         .order('created_at', { ascending: false });
-      
+
       if (data) setProductos(data);
       setLoading(false);
     }
@@ -34,11 +34,20 @@ export default function Home() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {productos.map((producto) => (
           <Card key={producto.id} className="overflow-hidden border-none bg-zinc-50 dark:bg-zinc-900 shadow-sm hover:shadow-md transition-shadow">
-            <div className="aspect-square bg-zinc-200 dark:bg-zinc-800 relative">
-              {/* Aquí iría la imagen si tienes la URL en Supabase */}
-              <div className="flex items-center justify-center h-full text-zinc-400">
-                {producto.nombre[0].toUpperCase()}
-              </div>
+            <div className="aspect-square bg-zinc-200 dark:bg-zinc-800 relative overflow-hidden">
+              {
+                producto.imagen_url ? (
+                  <img
+                    src={producto.imagen_url}
+                    alt={producto.nombre}
+                    className="object-cover w-full h-full hover:scale-105 transition-transform duration-300"
+                  />
+                ) : (
+                  <div className="flex items-center justify-center h-full text-zinc-400">
+                    Sin imagen
+                  </div>
+                )
+              }
             </div>
             <CardContent className="p-4">
               <h3 className="font-semibold text-lg">{producto.nombre}</h3>
