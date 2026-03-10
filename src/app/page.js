@@ -7,13 +7,25 @@ import { Badge } from "@/components/ui/badge";
 import { Trash2 } from "lucide-react";
 import { Pencil } from "lucide-react";
 import Link from "next/link";
+import { toast } from "sonner"
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
 
 export default function Home() {
   const [productos, setProductos] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const eliminarProducto = async (id) => {
-    if (!confirm("¿Seguro que desea eliminar este producto?")) return;
+    // if (!confirm("¿Seguro que desea eliminar este producto?")) return;
 
     const { error } = await supabase
       .from("productos")
@@ -21,8 +33,9 @@ export default function Home() {
       .eq("id", id); // Filtra por el ID del producto
 
     if (error) {
-      alert("Error al eliminar");
+      toast.error("Error al eliminar");
     } else {
+      toast.success("¡Producto eliminado correctamente!");
       // Actualiza el estado local para que desaparezca de la vista
       setProductos(productos.filter(p => p.id !== id));
     }
@@ -84,9 +97,34 @@ export default function Home() {
                       <Pencil className="h-4 w-4" />
                     </Button>
                   </Link>
-                  <Button variant="destructive" size="icon" onClick={() => eliminarProducto(producto.id)}>
-                    <Trash2 className="h-4 w-4" />
-                  </Button>
+
+                  <AlertDialog>
+                    <AlertDialogTrigger asChild>
+                      {/* El Trigger es el botón que el usuario ve originalmente */}
+                      <Button variant="destructive" size="icon">
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </AlertDialogTrigger>
+
+                    <AlertDialogContent>
+                      <AlertDialogHeader>
+                        <AlertDialogTitle>¿Eliminar {producto.nombre}?</AlertDialogTitle>
+                        <AlertDialogDescription>
+                          Esta acción no se puede deshacer. El producto desaparecerá de la base de datos.
+                        </AlertDialogDescription>
+                      </AlertDialogHeader>
+                      <AlertDialogFooter>
+                        <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                        {/* El botón de acción real que ejecuta la función */}
+                        <AlertDialogAction
+                          onClick={() => eliminarProducto(producto.id)}
+                          className="bg-red-600 hover:bg-red-700 text-white"
+                        >
+                          Sí, eliminar
+                        </AlertDialogAction>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialog>
                 </div>
               </CardFooter>
             </Card>

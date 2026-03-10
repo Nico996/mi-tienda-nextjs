@@ -4,6 +4,7 @@ import { useParams, useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { toast } from "sonner"
 
 export default function EditarProducto() {
     const { id } = useParams();
@@ -26,8 +27,12 @@ export default function EditarProducto() {
             .eq("id", id);
 
         if (!error) {
+            toast.success("¡Producto editado correctamente!");
             router.push("/");
             router.refresh();
+        }
+        else{
+            toast.error("Error al crear: " + error.message);
         }
     };
 

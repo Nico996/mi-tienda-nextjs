@@ -5,6 +5,7 @@ import { supabase } from "@/lib/supabase";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
+import { toast } from "sonner"
 
 export default function NuevoProducto() {
     const [nombre, setNombre] = useState("");
@@ -31,8 +32,9 @@ export default function NuevoProducto() {
             ]);
 
         if (error) {
-            alert("Error al crear: " + error.message);
+            toast.error("Error al crear: " + error.message);
         } else {
+            toast.success("¡Producto guardado correctamente!");
             router.push("/"); // Nos devuelve a la lista
             router.refresh();
         }
