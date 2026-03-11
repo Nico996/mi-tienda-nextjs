@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner"
 import { NumericFormat } from 'react-number-format';
+import { Textarea } from "@/components/ui/textarea";
 
 export default function EditarProducto() {
     const { id } = useParams();
@@ -47,6 +48,7 @@ export default function EditarProducto() {
                     placeholder="Nombre"
                 />
                 <NumericFormat
+                    value={formData.precio_unitario}
                     customInput={Input}
                     thousandSeparator={true}
                     prefix={'$ '}
@@ -57,6 +59,16 @@ export default function EditarProducto() {
                     onValueChange={(values) => {
                         setFormData({ ...formData, precio_unitario: values.floatValue });
                     }}
+                />
+                <Textarea
+                    value={formData.descripcion}
+                    placeholder="Descripción del producto (opcional)"
+                    onChange={(e) => setFormData({ ...formData, descripcion: e.target.value })}
+                />
+                <Input
+                    value={formData.imagen_url}
+                    placeholder="https://ejemplo.com/imagen.jpg (opcional)"
+                    onChange={(e) => setFormData({ ...formData, imagen_url: e.target.value })}
                 />
                 <Button variant="outline" type="button" onClick={() => router.back()}>
                     Cancelar
